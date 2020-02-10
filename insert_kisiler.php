@@ -54,4 +54,4 @@ if ( isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['ph
 //wweb servis - kişileri db'e eklemek için.
 
 
-//Autoincrement sorunu çözülmüş hali.
+//Autoincrement sorunu çözülmüş hali..
