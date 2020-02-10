@@ -2,8 +2,7 @@
 
 $response = array();
 
-if (isset($_POST['person_id']) && isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['phoneNo'])&& isset($_POST['email'])) {
-    $person_id = $_POST['person_id'];
+if ( isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['phoneNo'])&& isset($_POST['email'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $phoneNo = $_POST['phoneNo'];
@@ -21,7 +20,7 @@ if (isset($_POST['person_id']) && isset($_POST['firstName']) && isset($_POST['la
         die("Hatalı bağlantı : " . mysqli_connect_error());
     }
     
-    $sqlsorgu = "INSERT INTO Person (person_id,firstName,lastName,phoneNo,email) VALUES ('$person_id','$firstName','$lastName','$phoneNo','$email')";
+    $sqlsorgu = "INSERT INTO Person (firstName,lastName,phoneNo,email) VALUES ('$firstName','$lastName','$phoneNo','$email')";
 
     
     if (mysqli_query($baglanti, $sqlsorgu)) {
@@ -49,4 +48,10 @@ if (isset($_POST['person_id']) && isset($_POST['firstName']) && isset($_POST['la
     ?>
 
 
+
+
+
 //wweb servis - kişileri db'e eklemek için.
+
+
+//Autoincrement sorunu çözülmüş hali.
