@@ -1,0 +1,72 @@
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Login();
+
+    }
+
+    public void Login() {
+        //gidecek url belirliyorum. webservis insert kısmı burada
+        String url = "http://sinemakulup.com/mobile-codes/login.php ";
+
+        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    if(success.equals("1"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Giriş Başarılı",Toast.LENGTH_SHORT).show();
+                    }
+                    else if(success.equals("0")){
+                        Toast.makeText(getApplicationContext(),"Giris Başarısız",Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"Kayıt Başarısız"+e.toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            //göndereceğim veriyi yazıyorum.
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mailField","username"); //şimdilik manuel
+                params.put("passField", "password"); // şimdilik manuel
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(istek);
+    }
+    }
