@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GirisSayfasiActivity extends AppCompatActivity {
-    EditText kullaniciAdi, kullaniciSifre;
-    Button buton_girisYap, buton_kayitOl;
+    private EditText kullaniciAdi, kullaniciSifre;
+    private Button buton_girisYap, buton_kayitOl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class GirisSayfasiActivity extends AppCompatActivity {
         buton_kayitOl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent kayitOlaGit = new Intent(getApplicationContext(),KayitEkraniActivity.class);
+                Intent kayitOlaGit = new Intent(getApplicationContext(),Kayit.class);
                 startActivity(kayitOlaGit);
             }
         });

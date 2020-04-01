@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">E_Park</string>
+    <string name="invalid_kadi">Geçerli bir kullanıcı adı giriniz.(En az 5, en fazla 20 karakter olabilir ve rakamla başlayamaz, sadece rakamdan oluşamaz.)</string>
+    <string name="invalid_isim">Geçerli bir isim giriniz.(En az 3 harf, en fazla 25 harf olabilir ve rakam, karakter içeremez.)</string>
+    <string name="invalid_soyisim">Geçerli bir isim giriniz.(En az 3 harf, en fazla 25 harf olabilir ve rakam, karakter içeremez.)</string>
+    <string name="invalid_mail">Geçerli bir mail adresi giriniz.(xxx@xxx.com)</string>
+    <string name="invalid_phone">Geçerli bir telefon numarası giriniz.(05334443320)</string>
+    <string name="invalid_sifre">Şifreniz en az 8 en fazla 20 karakter olmalıdır.</string>
 </resources>
