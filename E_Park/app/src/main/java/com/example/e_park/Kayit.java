@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,12 +29,14 @@ import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Kayit extends AppCompatActivity {
     EditText kadi,ksifre,kisim,ksoyisim,kmail,ktel;
     Button kayitol,giriseDon;
+    Spinner spinner;
     AwesomeValidation awesomeValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class Kayit extends AppCompatActivity {
         ksoyisim = findViewById(R.id.edit_ksoyad);
         kmail = findViewById(R.id.edit_kMail);
         ktel = findViewById(R.id.edit_kTel);
+        spinner = findViewById(R.id.spinner);
+
 
         //Girilen bilgilerin tiplerinin kontrolünü sağlıyoruz..
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
@@ -58,6 +66,7 @@ public class Kayit extends AppCompatActivity {
         giriseDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //şimdilik kayıt devam düzeltilecek.
                 Intent giriseDon = new Intent(getApplicationContext(),GirisSayfasiActivity.class);
                 startActivity(giriseDon);
             }
@@ -104,6 +113,10 @@ public class Kayit extends AppCompatActivity {
                     if(success.equals("1"))
                     {
                         Toast.makeText(getApplicationContext(),"Kayıt Başarılı",Toast.LENGTH_SHORT).show();
+                        Intent aracEkleyeGonder = new Intent(getApplicationContext(),AracEklemeActivity.class);
+                        aracEkleyeGonder.putExtra("kullaniciAdi", kadi.getText().toString());
+                        startActivity(aracEkleyeGonder);
+                        finish();
                     }
                     if(success.equals("0"))
                     {
