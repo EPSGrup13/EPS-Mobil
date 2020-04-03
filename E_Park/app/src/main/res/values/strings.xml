@@ -6,4 +6,6 @@
     <string name="invalid_mail">Geçerli bir mail adresi giriniz.(xxx@xxx.com)</string>
     <string name="invalid_phone">Geçerli bir telefon numarası giriniz.(05334443320)</string>
     <string name="invalid_sifre">Şifreniz en az 8 en fazla 20 karakter olmalıdır.</string>
+    <string name="giris_tercihi">com.example.sharedlogindeneme_giris_tercihi</string>
+    <string name="giris_durumu_tercihi">com.example.sharedlogindeneme_giris_durumu_tercihi</string>
 </resources>

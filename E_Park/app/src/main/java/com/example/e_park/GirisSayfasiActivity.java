@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +28,8 @@ import java.util.Map;
 public class GirisSayfasiActivity extends AppCompatActivity {
     private EditText kullaniciAdi, kullaniciSifre;
     private Button buton_girisYap, buton_kayitOl;
+    private PaylasilanTercihYapilandirmasi paylasilanTercihYapilandirmasi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,13 @@ public class GirisSayfasiActivity extends AppCompatActivity {
         kullaniciSifre = findViewById(R.id.editText_kullaniciSifre);
         buton_girisYap = findViewById(R.id.button_giris);
         buton_kayitOl = findViewById(R.id.button_kayit);
-
+        paylasilanTercihYapilandirmasi = new PaylasilanTercihYapilandirmasi(getApplicationContext());
+        if(paylasilanTercihYapilandirmasi.girisDurumuOku())
+        {
+            Intent basarili = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(basarili);
+            finish();
+        }
         //GirişYap  butonuna tıklandığında olacak işlemler..
         buton_girisYap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,26 +82,34 @@ public class GirisSayfasiActivity extends AppCompatActivity {
                 startActivity(kayitOlaGit);
             }
         });
-
     }
     public void Login() {
         //gidecek url belirliyorum. webservis insert kısmı burada
         String url = "http://sinemakulup.com/mobile-codes/login.php ";
-
         StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
 
                     if(success.equals("1"))
                     {
+                        String kulAdi = kullaniciAdi.getText().toString();
+                        String kulSifre = kullaniciSifre.getText().toString();
+                        if(kulAdi.equals(kulAdi) && kulSifre.equals(kulSifre))
+                        {
+                            personIdCekme(kulAdi);
+                            Intent basarili = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(basarili);
+                            paylasilanTercihYapilandirmasi.girisDurumuYaz(true);
+                            finish();
+                        }
                         Toast.makeText(getApplicationContext(),"Giriş Başarılı..",Toast.LENGTH_SHORT).show();
                         //Eğer giriş başarılı ise Ana sayfaya yönlendiriyoruz.
                         Intent AnaSayfayaGit = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(AnaSayfayaGit);
+
                     }
                     else if(success.equals("0")){
                         Toast.makeText(getApplicationContext(),"Giris Başarısız..",Toast.LENGTH_SHORT).show();
@@ -114,6 +132,41 @@ public class GirisSayfasiActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("mailField",kullaniciAdi.getText().toString());
                 params.put("passField", kullaniciSifre.getText().toString());
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(istek);
+    }
+    public void personIdCekme(final String userName){
+        String url = "http://sinemakulup.com/aramaYapma.php";
+        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("cevap:",response);
+                //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray PersonListe = jsonObject.getJSONArray("User");
+                    for(int i = 0; i < PersonListe.length(); i++ ) {
+                        JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
+                        int person_id = p.getInt("person_id");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            //Aranacak Veri işlemlerini yapacağız.
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("userName",userName);
                 return params;
             }
         };
