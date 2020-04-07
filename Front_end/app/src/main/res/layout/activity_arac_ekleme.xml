@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="206dp"
+        android:layout_height="42dp"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="206dp"
+        android:layout_height="42dp"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="317dp" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="206dp"
+        android:layout_height="42dp"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kaydet"
+        tools:layout_editor_absoluteX="221dp"
+        tools:layout_editor_absoluteY="554dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/eparklogo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="142dp"
+        android:layout_height="41dp"
+        android:text="Araç Türü"
+        android:textColor="@color/ColorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="193dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marka"
+        android:textColor="@color/ColorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="276dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Model"
+        android:textColor="@color/ColorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="359dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Geri Dön"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="554dp" />
+
+    <EditText
+        android:id="@+id/plakaGir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Plakanızı Girin"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:textColor="@color/ColorWhite"
+        android:textColorHint="@color/ColorWhite"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="468dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

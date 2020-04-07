@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ <item android:title="Hesabım">
+     <menu>
+        <item android:id="@+id/nav_item_profilinf"
+            android:title="Profil Bilgileri"
+            android:icon="@drawable/ic_account_account"/>
+         <item android:id="@+id/nav_item_carinf"
+             android:title="Araç Bilgileri"
+             android:icon="@drawable/ic_action_car"/>
+     </menu>
+ </item>
+    <item android:title="Rezervasyonlar">
+        <menu>
+            <item android:id="@+id/nav_item_rezv"
+                android:title="Güncel Rezervasyonlar"
+                android:icon="@drawable/ic_action_rezv"/>
+            <item android:id="@+id/nav_item_oldrezv"
+                android:title="Geçmiş Rezervasyonlar"
+                android:icon="@drawable/ic_action_oldrezv"/>
+        </menu>
+
+    </item>
+</menu>
