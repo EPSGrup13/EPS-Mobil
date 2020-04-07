@@ -4,38 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Kayit">
 
     <EditText
         android:id="@+id/edit_kAdi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="7dp"
+        android:drawableLeft="@drawable/ic_action_name"
         android:ems="10"
         android:hint="Kullanıcı Adı"
         android:inputType="textPersonName"
+        android:textColor="@color/ColorWhite"
+        android:textColorHint="@color/ColorWhite"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/btn_kayit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="10dp"
         android:text="Kayıt Ol"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_kTel" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_giriseDon"
+        app:layout_constraintEnd_toStartOf="@+id/btn_giriseDon"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edit_kSifre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="19dp"
+        android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:hint="Şifre"
         android:inputType="textPassword"
+        android:textColor="@color/ColorWhite"
+        android:textStyle="bold"
+        android:textColorHint="@color/ColorWhite"
         app:layout_constraintStart_toStartOf="@+id/edit_kAdi"
         app:layout_constraintTop_toBottomOf="@+id/edit_kAdi" />
 
@@ -43,21 +54,29 @@
         android:id="@+id/edit_kisim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_action_name"
         android:ems="10"
         android:hint="İsim"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/edit_kSifre"
-        app:layout_constraintTop_toBottomOf="@+id/edit_kSifre" />
+        android:textColor="@color/ColorWhite"
+        android:textStyle="bold"
+        android:textColorHint="@color/ColorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/edit_ksoyad"
+        app:layout_constraintStart_toStartOf="@+id/edit_ksoyad" />
 
     <EditText
         android:id="@+id/edit_ksoyad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="18dp"
+        android:drawableStart="@drawable/ic_action_name"
         android:ems="10"
         android:hint="Soyisim"
         android:inputType="textPersonName"
+        android:textColor="@color/ColorWhite"
+        android:textColorHint="@color/ColorWhite"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edit_kMail"
         app:layout_constraintStart_toStartOf="@+id/edit_kMail" />
 
@@ -65,35 +84,50 @@
         android:id="@+id/edit_kMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:drawableLeft="@drawable/ic_action_email"
         android:ems="10"
         android:hint="E-Mail"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="@color/ColorWhite"
+        android:textColorHint="@color/ColorWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edit_kTel"
+        app:layout_constraintStart_toStartOf="@+id/edit_kTel" />
 
     <EditText
         android:id="@+id/edit_kTel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_marginBottom="10dp"
+        android:drawableLeft="@drawable/ic_action_phone"
         android:ems="10"
         android:hint="Telefon Numarası"
         android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_kMail" />
+        android:textColor="@color/ColorWhite"
+        android:textColorHint="@color/ColorWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_kayit"
+        app:layout_constraintStart_toStartOf="@+id/btn_kayit" />
 
     <Button
         android:id="@+id/btn_giriseDon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="39dp"
+        android:layout_marginBottom="34dp"
         android:text="Hesabım Var"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_kayit" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_kayit" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/eparklogo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

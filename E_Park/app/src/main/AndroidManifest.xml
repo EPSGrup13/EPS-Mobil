@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AracEklemeActivity"></activity>
+        <activity android:name=".KullaniciProfilActivity"></activity>
+        <activity android:name=".AracEklemeActivity" />
         <activity android:name=".Kayit" />
         <activity android:name=".AnimasyonActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".GirisSayfasiActivity">
+        <activity android:name=".GirisSayfasiActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
