@@ -91,7 +91,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.696"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="559dp" />
+        tools:layout_editor_absoluteY="559dp"
+        android:background="@drawable/button_custom"/>
 
     <Button
         android:id="@+id/button4"
@@ -99,6 +100,7 @@
         android:layout_height="wrap_content"
         android:text="Geri Dön"
         tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="559dp" />
+        tools:layout_editor_absoluteY="559dp"
+        android:background="@drawable/button_custom"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
