@@ -15,9 +15,9 @@
         <activity android:name=".KullaniciProfilActivity"></activity>
         <activity android:name=".AracEklemeActivity" />
         <activity android:name=".Kayit" />
-        <activity android:name=".AnimasyonActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".GirisSayfasiActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".AnimasyonActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
