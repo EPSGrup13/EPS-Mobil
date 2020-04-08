@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +40,8 @@ public class AracEklemeActivity extends AppCompatActivity {
     TextView textView,textView2,textView3,textView4,textView5,textView7,tevdene;
     EditText girilenPlaka;
     Button buton_kaydet;
+    AwesomeValidation awesomeValidation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +50,9 @@ public class AracEklemeActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         spinner2 = findViewById(R.id.spinner2);
         spinner3 = findViewById(R.id.spinner3);
-        textView = findViewById(R.id.textView);
-        textView2 = findViewById(R.id.textView2);
-        textView3 = findViewById(R.id.textView3);
-        textView4 = findViewById(R.id.textView4);
-        textView5 = findViewById(R.id.textView6);
-        textView7 = findViewById(R.id.textView7);
-        tevdene = findViewById(R.id.textView5);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation.addValidation(this,R.id.plakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
+
 
         gelenAd = getIntent().getExtras().getString("kullaniciAdi");
         personIdCekme();
@@ -64,18 +65,22 @@ public class AracEklemeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String veri = girilenPlaka.getText().toString();
-                ilPlaka = veri.substring(0,2);  // il kısmı olan 34 gibi alanı alıyoruz. 34ABC123
-                row_plate = veri.substring(2);  // geri kalan kısım ABC123 gibi alan
-                full_plate = veri;
-                textView.setText(aracTip);  //otomobil
-                textView2.setText(aracMarka);  //marka
-                textView3.setText(aracModel);  //model
-                textView4.setText(ilPlaka);   //34
-                textView5.setText(row_plate);  //ABC123
-                textView7.setText(full_plate); //34ABC123
-                aracKaydet();
-
-
+                if(veri.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(),"Tüm Bilgiler Doldurulmalıdır.",Toast.LENGTH_SHORT).show();
+                }
+                else if(awesomeValidation.validate() == false)
+                {
+                    Toast.makeText(getApplicationContext(),"Bilgileri kurallara göre doldurunuz!",Toast.LENGTH_SHORT).show();
+                }
+                else if(awesomeValidation.validate() == true)
+                {
+                    Toast.makeText(getApplicationContext(),"Başarılı",Toast.LENGTH_SHORT).show();
+                    ilPlaka = veri.substring(0,2);  // il kısmı olan 34 gibi alanı alıyoruz. 34ABC123
+                    row_plate = veri.substring(2);  // geri kalan kısım ABC123 gibi alan
+                    full_plate = veri;
+                    aracKaydet();
+                }
             }
         });
 
@@ -1247,7 +1252,6 @@ public class AracEklemeActivity extends AppCompatActivity {
                         //LOGDA Göstermek için
                         //Log.e("Person_id => ",String.valueOf(person_id));
                         //Log.e("***","****");
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1309,9 +1313,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                 params.put("model", aracModel);
                 params.put("is_main", "1");
                 params.put("city_id", ilPlaka);
-                params.put("person_id",person_id); // daha sonra güncellenecek
-
-
+                params.put("person_id",person_id);
                 return params;
             }
         };

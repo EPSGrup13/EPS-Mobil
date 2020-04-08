@@ -8,4 +8,5 @@
     <string name="invalid_sifre">Şifreniz en az 8 en fazla 20 karakter olmalıdır.</string>
     <string name="giris_tercihi">com.example.sharedlogindeneme_giris_tercihi</string>
     <string name="giris_durumu_tercihi">com.example.sharedlogindeneme_giris_durumu_tercihi</string>
+    <string name="invalid_plakaa">Geçerli bir plaka giriniz.(34ABC123)</string>
 </resources>
