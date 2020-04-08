@@ -40,4 +40,9 @@
                 android:icon="@drawable/ic_action_iletisim"/>
         </menu>
     </item>
+    <item android:title="Çıkış Yap"
+        android:id="@+id/cikisYap">
+
+    </item>
+
 </menu>

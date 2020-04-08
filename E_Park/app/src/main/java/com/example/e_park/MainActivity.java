@@ -21,7 +21,6 @@ import java.lang.String;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private Button buttoncisikYap;
     private PaylasilanTercihYapilandirmasi paylasilanTercihYapilandirmasi;
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -46,18 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        buttoncisikYap = findViewById(R.id.button_cikisYap);
         paylasilanTercihYapilandirmasi = new PaylasilanTercihYapilandirmasi(getApplicationContext());
-
-        buttoncisikYap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                paylasilanTercihYapilandirmasi.girisDurumuYaz(false);
-                Intent cikis = new Intent(getApplicationContext(), GirisSayfasiActivity.class);
-                startActivity(cikis);
-                finish();
-            }
-        });
 
     }
 
@@ -76,6 +64,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.cikisYap)
+        {
+            paylasilanTercihYapilandirmasi.girisDurumuYaz(false);
+            Intent cikis = new Intent(getApplicationContext(), GirisSayfasiActivity.class);
+            startActivity(cikis);
+            finish();
+        }
         if (item.getItemId()==R.id.nav_item_profilinf){
             Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
         }
@@ -85,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (item.getItemId()==R.id.nav_item_rezv){
             Toast.makeText(getApplicationContext(),"Rezervasyon",Toast.LENGTH_SHORT).show();
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
