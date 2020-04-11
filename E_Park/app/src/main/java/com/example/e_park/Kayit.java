@@ -113,8 +113,8 @@ public class Kayit extends AppCompatActivity {
                     String success = jsonObject.getString("success");
                     if(success.equals("1"))
                     {
-                        Toast.makeText(getApplicationContext(),"Kayıt Başarılı",Toast.LENGTH_SHORT).show();
-                        Intent aracEkleyeGonder = new Intent(getApplicationContext(),AracEklemeActivity.class);
+                        Toast.makeText(getApplicationContext(),"Kayıt Başarılı,Giriş Sayfasına Yönlendiriliyorsunuz..",Toast.LENGTH_SHORT).show();
+                        Intent aracEkleyeGonder = new Intent(getApplicationContext(),GirisSayfasiActivity.class);
                         aracEkleyeGonder.putExtra("kullaniciAdi", kadi.getText().toString());
                         startActivity(aracEkleyeGonder);
                         finish();
