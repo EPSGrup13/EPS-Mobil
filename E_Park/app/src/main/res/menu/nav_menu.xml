@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ <item android:title="Hesabım">
+     <menu>
+        <item android:id="@+id/nav_item_profilinf"
+            android:title="Profil Bilgileri"
+            android:icon="@drawable/ic_account_account"/>
+         <item android:id="@+id/nav_item_carinf"
+             android:title="Araç Bilgileri"
+             android:icon="@drawable/ic_action_car"/>
+     </menu>
+ </item>
+    <item android:title="E-park İşlemleri">
+        <menu>
+            <item android:id="@+id/nav_item_findpark"
+                android:title="Otopark Bul"
+                android:icon="@drawable/ic_action_findoto"/>
+            <item android:id="@+id/nav_item_rezv"
+                android:title="Güncel Rezervasyonlar"
+                android:icon="@drawable/ic_action_rezv"/>
+            <item android:id="@+id/nav_item_oldrezv"
+                android:title="Geçmiş Rezervasyonlar"
+                android:icon="@drawable/ic_action_oldrezv"/>
+        </menu>
+    </item>
+    <item android:title="Ödeme Yöntemleri">
+    <menu>
+        <item android:id="@+id/nav_item_pay"
+            android:title="Bakiye Yükle"
+            android:icon="@drawable/ic_action_pay"/>
+    </menu>
+    </item>
+    <item android:title="Bize Ulaşın">
+        <menu>
+            <item android:id="@+id/nav_item_sss"
+                android:title="Sıkça Sorulan Sorular"
+                android:icon="@drawable/ic_action_sss"/>
+            <item android:id="@+id/nav_item_iletisim"
+                android:title="İletişim"
+                android:icon="@drawable/ic_action_iletisim"/>
+        </menu>
+    </item>
+    <item android:title="Çıkış Yap"
+        android:id="@+id/cikisYap">
+
+    </item>
+
+</menu>
