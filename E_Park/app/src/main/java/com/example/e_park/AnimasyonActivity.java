@@ -19,7 +19,7 @@ public class AnimasyonActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(2200);
+                    sleep(1000);
                     Intent intent = new Intent(getApplicationContext(),GirisSayfasiActivity.class);
                     startActivity(intent);
                     finish();

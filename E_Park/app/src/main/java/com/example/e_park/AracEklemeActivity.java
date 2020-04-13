@@ -52,8 +52,6 @@ public class AracEklemeActivity extends AppCompatActivity {
         spinner3 = findViewById(R.id.spinner3);
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this,R.id.plakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
-
-
         gelenAd = getIntent().getExtras().getString("kullaniciAdi");
         personIdCekme();
 
@@ -79,6 +77,8 @@ public class AracEklemeActivity extends AppCompatActivity {
                     ilPlaka = veri.substring(0,2);  // il kısmı olan 34 gibi alanı alıyoruz. 34ABC123
                     row_plate = veri.substring(2);  // geri kalan kısım ABC123 gibi alan
                     full_plate = veri;
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    //intent.putExtra("girisKadi",gelenAd);
                     aracKaydet();
                 }
             }
@@ -180,23 +180,16 @@ public class AracEklemeActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Veri Kontrol Edelim.
                 aracTip = aracTipi[position];
-
-
                 //Toast.makeText(getApplicationContext(),"Araç Tip:"+aracTip,Toast.LENGTH_SHORT).show();
-
                 if(position == 1) // Otomobil markaları listelenecek
                 {
                     ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,otomobilMarkaları);
                     spinner2.setAdapter(modelAdapter);
-
-
                     //Otomobil Modelleri Listelenecek..
                     spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             aracMarka = otomobilMarkaları[position];
-
-
                             //Seçilen Markanın Modelleri Gelecek
                             if(position == 1)
                             {

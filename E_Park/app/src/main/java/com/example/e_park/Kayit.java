@@ -1,6 +1,8 @@
 package com.example.e_park;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +41,9 @@ public class Kayit extends AppCompatActivity {
     Button kayitol,giriseDon;
     Spinner spinner;
     AwesomeValidation awesomeValidation;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +118,9 @@ public class Kayit extends AppCompatActivity {
                     String success = jsonObject.getString("success");
                     if(success.equals("1"))
                     {
-                        Toast.makeText(getApplicationContext(),"Kayıt Başarılı,Giriş Sayfasına Yönlendiriliyorsunuz..",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Kayıt Başarılı, Giriş Sayfasına Yönlendiriliyorsunuz.",Toast.LENGTH_SHORT).show();
                         Intent aracEkleyeGonder = new Intent(getApplicationContext(),GirisSayfasiActivity.class);
-                        aracEkleyeGonder.putExtra("kullaniciAdi", kadi.getText().toString());
+                        //aracEkleyeGonder.putExtra("kullaniciAdi", kadi.getText().toString());
                         startActivity(aracEkleyeGonder);
                         finish();
                     }

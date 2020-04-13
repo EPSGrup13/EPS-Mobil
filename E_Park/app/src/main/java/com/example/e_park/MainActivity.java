@@ -7,9 +7,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,17 +20,34 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.lang.String;
+import java.util.HashMap;
+import java.util.Map;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private int person_id;
+    private String gelenKadi;
+
     private PaylasilanTercihYapilandirmasi paylasilanTercihYapilandirmasi;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private Toolbar toolbar;
+
     private Fragment fragment;
-    
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +64,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View baslik = navigationView.inflateHeaderView(R.layout.navigation_baslik);
 
-
         navigationView.setNavigationItemSelectedListener(this);
 
         paylasilanTercihYapilandirmasi = new PaylasilanTercihYapilandirmasi(getApplicationContext());
 
+        gelenKadi = getIntent().getExtras().getString("girisKadi");   // Gelen kullanici Adi
+        personIdCekme();
+        Log.e("Kullanici=>",String.valueOf(gelenKadi));
+
+
+
+
+
+    }//oncreate bitiyor.
+
+
+    public void personIdCekme(){
+        String url = "http://sinemakulup.com/aramaYapma.php";
+        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Log.e("cevap:",response);
+                //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray PersonListe = jsonObject.getJSONArray("User");
+                    for(int i = 0; i < PersonListe.length(); i++ ) {
+                        JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
+                        person_id = p.getInt("person_id");
+                        //LOGDA Göstermek için
+                        Log.e("Person_id => ",String.valueOf(person_id));
+                        //Log.e("***","****");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            //Aranacak Veri işlemlerini yapacağız.
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Log.e("Person_id => ",String.valueOf(gelenAd));
+                Map<String,String> params = new HashMap<>();
+                params.put("userName",gelenKadi);
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(istek);
     }
 
     @Override
@@ -60,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-
         }
     }
 
@@ -76,6 +141,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if (item.getItemId() == R.id.nav_item_profilinf){
             Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
             fragment = new FragmentProfil();
+
+            Bundle b2 = new Bundle();
+            b2.putInt("deger",person_id);
+            fragment.setArguments(b2);
+
         }
         else if (item.getItemId() == R.id.nav_item_carinf){
             Toast.makeText(getApplicationContext(),"Araç Bilgileri",Toast.LENGTH_SHORT).show();

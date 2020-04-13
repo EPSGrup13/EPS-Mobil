@@ -1,6 +1,8 @@
 package com.example.e_park;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +31,7 @@ public class GirisSayfasiActivity extends AppCompatActivity {
     private EditText kullaniciAdi, kullaniciSifre;
     private Button buton_girisYap, buton_kayitOl;
     private PaylasilanTercihYapilandirmasi paylasilanTercihYapilandirmasi;
-
+    int person_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class GirisSayfasiActivity extends AppCompatActivity {
         if(paylasilanTercihYapilandirmasi.girisDurumuOku())
         {
             Intent basarili = new Intent(getApplicationContext(),MainActivity.class);
+            basarili.putExtra("girisKadi",String.valueOf(kullaniciAdi));
             startActivity(basarili);
             finish();
         }
@@ -71,7 +74,6 @@ public class GirisSayfasiActivity extends AppCompatActivity {
                     //Eğer alanlar dolu ise Login metodu tetikleniyor.
                     Login();
                 }
-
             }
         });
         //Kayıt ol butonuna tıklandığında Kayıt sayfasına gönderiyoruz..
@@ -99,17 +101,20 @@ public class GirisSayfasiActivity extends AppCompatActivity {
                         String kulSifre = kullaniciSifre.getText().toString();
                         if(kulAdi.equals(kulAdi) && kulSifre.equals(kulSifre))
                         {
-                            personIdCekme(kulAdi);
+
+                            personIdCekme(String.valueOf(kullaniciAdi));
                             Intent basarili = new Intent(getApplicationContext(),MainActivity.class);
+                            //basarili.putExtra("girisKadi",kulAdi);
                             startActivity(basarili);
                             paylasilanTercihYapilandirmasi.girisDurumuYaz(true);
                             finish();
                         }
                         Toast.makeText(getApplicationContext(),"Giriş Başarılı..",Toast.LENGTH_SHORT).show();
                         //Eğer giriş başarılı ise Ana sayfaya yönlendiriyoruz.
+                        personIdCekme(kulAdi);
                         Intent AnaSayfayaGit = new Intent(getApplicationContext(),MainActivity.class);
+                        AnaSayfayaGit.putExtra("girisKadi",kulAdi);
                         startActivity(AnaSayfayaGit);
-
                     }
                     else if(success.equals("0")){
                         Toast.makeText(getApplicationContext(),"Giris Başarısız..",Toast.LENGTH_SHORT).show();
@@ -138,20 +143,21 @@ public class GirisSayfasiActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(istek);
     }
     public void personIdCekme(final String userName){
+
         String url = "http://sinemakulup.com/aramaYapma.php";
-        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+        {
             @Override
             public void onResponse(String response) {
-                Log.e("cevap:",response);
+                //Log.e("cevap:",response);
                 //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray PersonListe = jsonObject.getJSONArray("User");
                     for(int i = 0; i < PersonListe.length(); i++ ) {
                         JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
-                        int person_id = p.getInt("person_id");
+                         person_id = p.getInt("person_id");
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
