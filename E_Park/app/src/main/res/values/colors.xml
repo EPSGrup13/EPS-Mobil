@@ -5,5 +5,10 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="ColorWhite">#FDFFFF</color>
     <color name="ColorHint">#D5DADA</color>
+    <color name="ColorFragmentBackground">#74C3F1</color>
+    <color name="ButtonSave">#59E95C</color>
+    <color name="ButtonEdit">#8AD4F6</color>
+
+
 
 </resources>

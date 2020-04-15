@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.lang.String;
@@ -71,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         gelenKadi = getIntent().getExtras().getString("girisKadi");   // Gelen kullanici Adi
         personIdCekme();
         Log.e("Kullanici=>",String.valueOf(gelenKadi));
-
-
 
 
 
