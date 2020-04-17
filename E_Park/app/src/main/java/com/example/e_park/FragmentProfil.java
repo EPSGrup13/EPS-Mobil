@@ -25,8 +25,6 @@ public class FragmentProfil extends Fragment {
         textView = viewRoot.findViewById(R.id.textView18);
         veri = this.getArguments().getInt("deger");
         textView.setText(String.valueOf(veri));
-        textView.setText(String.valueOf(veri));
-
         return viewRoot;
     }
 }
