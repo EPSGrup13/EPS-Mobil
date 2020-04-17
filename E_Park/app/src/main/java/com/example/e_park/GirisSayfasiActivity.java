@@ -101,10 +101,9 @@ public class GirisSayfasiActivity extends AppCompatActivity {
                         String kulSifre = kullaniciSifre.getText().toString();
                         if(kulAdi.equals(kulAdi) && kulSifre.equals(kulSifre))
                         {
-
-                            personIdCekme(String.valueOf(kullaniciAdi));
+                            personIdCekme(kulAdi);
                             Intent basarili = new Intent(getApplicationContext(),MainActivity.class);
-                            //basarili.putExtra("girisKadi",kulAdi);
+                            basarili.putExtra("girisKadi",kulAdi);
                             startActivity(basarili);
                             paylasilanTercihYapilandirmasi.girisDurumuYaz(true);
                             finish();
