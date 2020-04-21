@@ -74,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
     }//oncreate bitiyor.
+
 
 
     public void personIdCekme(){
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         Volley.newRequestQueue(this).add(istek);
+
     }
 
     @Override
@@ -139,12 +139,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
         else if (item.getItemId() == R.id.nav_item_profilinf){
-            Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
-            fragment = new FragmentProfil();
 
-            Bundle b2 = new Bundle();
-            b2.putInt("deger",person_id);
-            fragment.setArguments(b2);
+                Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
+                fragment = new FragmentProfil();
+                Bundle b2 = new Bundle();
+                b2.putInt("deger",person_id);
+                fragment.setArguments(b2);
 
         }
         else if (item.getItemId() == R.id.nav_item_carinf){
@@ -179,6 +179,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Toast.makeText(getApplicationContext(),"İletişim Bilgileri",Toast.LENGTH_SHORT).show();
             fragment =new FragmentIletisim();
+        }
+        if(person_id == 0)
+        {
+            paylasilanTercihYapilandirmasi.girisDurumuYaz(false);
+            Intent intent = new Intent(getApplicationContext(),GirisSayfasiActivity.class);
+            startActivity(intent);
+            Toast.makeText(getApplicationContext(),"Güvenli oturum sonlandırıldı, Lütfen tekrar Giriş Yapınız",Toast.LENGTH_SHORT).show();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tutucu,fragment).commit();
         drawer.closeDrawer(GravityCompat.START);
