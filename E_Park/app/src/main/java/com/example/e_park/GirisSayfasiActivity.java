@@ -177,4 +177,5 @@ public class GirisSayfasiActivity extends AppCompatActivity {
         };
         Volley.newRequestQueue(this).add(istek);
     }
+
 }

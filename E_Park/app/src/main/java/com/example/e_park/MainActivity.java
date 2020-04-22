@@ -37,8 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private int person_id;
-    private String gelenKadi;
+    private int person_id,city_id,phoneNo;
+    private String gelenKadi,balance, firstName, lastName,email;
 
     private PaylasilanTercihYapilandirmasi paylasilanTercihYapilandirmasi;
     private NavigationView navigationView;
@@ -73,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.e("Kullanici=>",String.valueOf(gelenKadi));
 
 
-
     }//oncreate bitiyor.
-
-
 
     public void personIdCekme(){
         String url = "http://sinemakulup.com/aramaYapma.php";
@@ -91,8 +88,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for(int i = 0; i < PersonListe.length(); i++ ) {
                         JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
                         person_id = p.getInt("person_id");
+                        balance = p.getString("balance");
                         //LOGDA Göstermek için
                         Log.e("Person_id => ",String.valueOf(person_id));
+                        String url = "http://sinemakulup.com/aramaYapma2.php";
+                        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.e("cevapbilgi:",response);
+                                //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    JSONArray PersonListe = jsonObject.getJSONArray("Person");
+                                    for(int i = 0; i < PersonListe.length(); i++ ) {
+                                        JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
+                                        firstName = p.getString("firstName");
+                                        lastName = p.getString("lastName");
+                                        phoneNo = p.getInt("phoneNo");
+                                        email = p.getString("email");
+                                        city_id = p.getInt("city_id");
+
+                                        //LOGDA Göstermek için
+                                        Log.e("fistName => ",String.valueOf(firstName));
+                                        Log.e("lastname => ",String.valueOf(lastName));
+
+                                       // Log.e("phone => ",String.valueOf(phoneNo));
+                                       // Log.e("mail => ",email);
+                                       // Log.e("city",String.valueOf(city_id));
+
+                                        //Log.e("***","****");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Log.e("Exception hata=> ",e.getMessage());
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("Hata",error.toString());
+                            }
+                        }){
+                            //Aranacak Veri işlemlerini yapacağız.
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                //Log.e("Person_id => ",String.valueOf(gelenAd));
+                                Map<String,String> params = new HashMap<>();
+                                params.put("person_id",String.valueOf(person_id));
+                                return params;
+                            }
+                        };
+                        Volley.newRequestQueue(getApplicationContext()).add(istek);
                         //Log.e("***","****");
                     }
                 } catch (JSONException e) {
@@ -114,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         Volley.newRequestQueue(this).add(istek);
-
     }
+
 
     @Override
     public void onBackPressed() {
@@ -144,8 +190,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FragmentProfil();
                 Bundle b2 = new Bundle();
                 b2.putInt("deger",person_id);
+                b2.putString("balanceDeger",balance);
+                b2.putString("firstNameDeger",firstName);
+                b2.putString("lastNameDeger",lastName);
+                b2.putString("telefon",String.valueOf(phoneNo));
+                b2.putString("city_id",String.valueOf(city_id));
+                b2.putString("email",email);
                 fragment.setArguments(b2);
-
         }
         else if (item.getItemId() == R.id.nav_item_carinf){
             Toast.makeText(getApplicationContext(),"Araç Bilgileri",Toast.LENGTH_SHORT).show();
