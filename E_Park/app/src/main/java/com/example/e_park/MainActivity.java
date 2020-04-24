@@ -162,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Volley.newRequestQueue(this).add(istek);
     }
 
-
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
@@ -186,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (item.getItemId() == R.id.nav_item_profilinf){
 
-                Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
                 fragment = new FragmentProfil();
                 Bundle b2 = new Bundle();
                 b2.putInt("deger",person_id);
@@ -199,8 +198,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment.setArguments(b2);
         }
         else if (item.getItemId() == R.id.nav_item_carinf){
-            Toast.makeText(getApplicationContext(),"Araç Bilgileri",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Araç Bilgileri",Toast.LENGTH_SHORT).show();
             fragment = new FragmentArac();
+            Bundle b2 = new Bundle();
+            b2.putInt("deger",person_id);
+            fragment.setArguments(b2);
         }
         else if (item.getItemId() == R.id.nav_item_rezv){
             Toast.makeText(getApplicationContext(),"Güncel Rezervasyon",Toast.LENGTH_SHORT).show();

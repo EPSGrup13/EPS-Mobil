@@ -6,12 +6,83 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textViewAracYok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="298dp"
-        android:text="Arac"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="81dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewMarka"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPlaka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewAracYok"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMarka"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPlaka2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="17dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewMarka2"
+        app:layout_constraintEnd_toStartOf="@+id/textViewMarka2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMarka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewAracYok"
+        app:layout_constraintEnd_toStartOf="@+id/textViewModel"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlaka" />
+
+    <TextView
+        android:id="@+id/textViewMarka2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewModel2"
+        app:layout_constraintStart_toEndOf="@+id/textViewPlaka2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAracYok" />
+
+    <TextView
+        android:id="@+id/textViewModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="11dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewMarka"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewMarka" />
+
+    <TextView
+        android:id="@+id/textViewModel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:text="TextView"
+        android:textSize="23sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewMarka2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewMarka2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

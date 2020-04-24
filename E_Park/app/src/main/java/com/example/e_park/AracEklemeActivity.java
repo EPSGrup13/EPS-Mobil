@@ -1283,7 +1283,6 @@ public class AracEklemeActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-
                 }catch (JSONException e){
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),"Kayıt Başarısız"+e.toString(), Toast.LENGTH_SHORT).show();
