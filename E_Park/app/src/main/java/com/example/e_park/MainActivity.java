@@ -204,6 +204,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             b2.putInt("deger",person_id);
             fragment.setArguments(b2);
         }
+        else if (item.getItemId() == R.id.nav_item_caradd){
+            Toast.makeText(getApplicationContext(),"Araç Ekle",Toast.LENGTH_SHORT).show();
+            fragment = new FragmentAracEkle();
+            Bundle b2 = new Bundle();
+            b2.putInt("deger",person_id);
+            fragment.setArguments(b2);
+        }
         else if (item.getItemId() == R.id.nav_item_rezv){
             Toast.makeText(getApplicationContext(),"Güncel Rezervasyon",Toast.LENGTH_SHORT).show();
             fragment = new FragmentGuncelRezerve();

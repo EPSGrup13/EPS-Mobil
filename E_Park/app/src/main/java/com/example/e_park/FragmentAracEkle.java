@@ -1,17 +1,20 @@
 package com.example.e_park;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,61 +25,58 @@ import com.android.volley.toolbox.Volley;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AracEklemeActivity extends AppCompatActivity {
-    String gelenAd;
-    String person_id;
-    private Spinner spinner,spinner2,spinner3;
-    private ArrayAdapter<String> spinnerAdapter;
-    String aracTip, aracMarka,aracModel,ilPlaka,row_plate,full_plate;
-    TextView textView,textView2,textView3,textView4,textView5,textView7,tevdene;
-    EditText girilenPlaka;
-    Button buton_kaydet;
+public class FragmentAracEkle extends Fragment {
+
+    int kullaniciID;
+    String kID, aracTip, aracMarka,aracModel,ilPlaka,row_plate,full_plate;
+    EditText plakaGir;
+    Button ButonKaydet;
     AwesomeValidation awesomeValidation;
+    private ArrayAdapter<String> spinnerAdapter;
+    private Spinner spinner,spinner2,spinner3;
 
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arac_ekleme);
-        spinner = findViewById(R.id.spinnerAracTuru);
-        spinner2 = findViewById(R.id.spinnerMarka);
-        spinner3 = findViewById(R.id.spinnerModel);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View viewRoot = inflater.inflate(R.layout.fragment_yeniarac,container,false);
+
+        kullaniciID = this.getArguments().getInt("deger");
+        kID = String.valueOf(kullaniciID);
+
+        spinner = viewRoot.findViewById(R.id.spinnerAracTuru);
+        spinner2 = viewRoot.findViewById(R.id.spinnerMarka);
+        spinner3 = viewRoot.findViewById(R.id.spinnerModel);
+        plakaGir = viewRoot.findViewById(R.id.editTextplakaGir);
+        ButonKaydet = viewRoot.findViewById(R.id.buttonKaydet);
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        awesomeValidation.addValidation(this,R.id.editTextplakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
-        gelenAd = getIntent().getExtras().getString("kullaniciAdi");
-        personIdCekme();
+        awesomeValidation.addValidation(getActivity(),R.id.editTextplakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
 
-        girilenPlaka = findViewById(R.id.editTextplakaGir);
 
-        buton_kaydet = findViewById(R.id.buttonKaydet);
-
-        buton_kaydet.setOnClickListener(new View.OnClickListener() {
+        ButonKaydet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String veri = girilenPlaka.getText().toString();
+                String veri = plakaGir.getText().toString();
                 if(veri.isEmpty())
                 {
-                    Toast.makeText(getApplicationContext(),"Tüm Bilgiler Doldurulmalıdır.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Tüm Bilgiler Doldurulmalıdır.",Toast.LENGTH_SHORT).show();
                 }
                 else if(awesomeValidation.validate() == false)
                 {
-                    Toast.makeText(getApplicationContext(),"Bilgileri kurallara göre doldurunuz!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Bilgileri kurallara göre doldurunuz!",Toast.LENGTH_SHORT).show();
                 }
                 else if(awesomeValidation.validate() == true)
                 {
-                    Toast.makeText(getApplicationContext(),"Başarılı",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(),"Başarılı",Toast.LENGTH_SHORT).show();
                     ilPlaka = veri.substring(0,2);  // il kısmı olan 34 gibi alanı alıyoruz. 34ABC123
                     row_plate = veri.substring(2);  // geri kalan kısım ABC123 gibi alan
                     full_plate = veri;
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                    //intent.putExtra("girisKadi",gelenAd);
                     aracKaydet();
                 }
             }
@@ -169,9 +169,8 @@ public class AracEklemeActivity extends AppCompatActivity {
         final String[] motor_Yuki ={"Afşin 250","Drag 200","Forza 170","FX1", "YK 100","Diger"}; //24
         final String[] motor_Diger ={"Diger"}; //25
         // Araç tipini seçtiriyoruz.
-        spinnerAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,aracTipi);
+        spinnerAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,aracTipi);
         spinner.setAdapter(spinnerAdapter);
-
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -181,7 +180,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),"Araç Tip:"+aracTip,Toast.LENGTH_SHORT).show();
                 if(position == 1) // Otomobil markaları listelenecek
                 {
-                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,otomobilMarkaları);
+                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,otomobilMarkaları);
                     spinner2.setAdapter(modelAdapter);
                     //Otomobil Modelleri Listelenecek..
                     spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -191,7 +190,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             //Seçilen Markanın Modelleri Gelecek
                             if(position == 1)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_AlfaRomeo_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_AlfaRomeo_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -205,7 +204,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 2)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_AstonMartin_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_AstonMartin_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -219,7 +218,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 3)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Audi_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Audi_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -233,7 +232,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 4)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Bentley_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Bentley_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -247,7 +246,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 5)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Bmw_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Bmw_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -261,7 +260,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 6)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Bugatti_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Bugatti_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -275,7 +274,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 7)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Cadillac_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Cadillac_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -289,7 +288,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 8)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Cherry_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Cherry_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -303,7 +302,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 9)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Chevrolet_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Chevrolet_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -317,7 +316,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 10)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Citroen_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Citroen_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -331,7 +330,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 11)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Dacia_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Dacia_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -345,7 +344,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 12)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Dodge_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Dodge_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -359,7 +358,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 13)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Ferrari_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Ferrari_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -373,7 +372,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 14)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Fiat_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Fiat_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -387,7 +386,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 15)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Ford_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Ford_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -401,7 +400,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 16)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Geely_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Geely_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -415,7 +414,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 17)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Honda_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Honda_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -429,7 +428,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 18)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Hyundai_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Hyundai_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -443,7 +442,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 19)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Infiniti_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Infiniti_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -457,7 +456,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 20)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Isuzu_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Isuzu_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -471,7 +470,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 21)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Jaguar_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Jaguar_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -485,7 +484,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 22)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Kia_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Kia_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -499,7 +498,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 23)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Lada_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Lada_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -513,7 +512,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 24)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Lamborghini_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Lamborghini_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -527,7 +526,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 25)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Lexus_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Lexus_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -541,7 +540,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 26)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Maserati_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Maserati_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -555,7 +554,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 27)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Mazda_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Mazda_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -569,7 +568,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 28)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Mercedes_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Mercedes_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -583,7 +582,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 29)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Mini_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Mini_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -597,7 +596,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 30)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Mitsubishi_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Mitsubishi_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -611,7 +610,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 31)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Nissan_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Nissan_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -625,7 +624,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 32)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Opel_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Opel_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -639,7 +638,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 33)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Peugeot_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Peugeot_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -653,7 +652,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 34)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Porsche_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Porsche_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -667,7 +666,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 35)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Renault_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Renault_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -681,7 +680,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 36)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Rover_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Rover_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -695,7 +694,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 37)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Seat_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Seat_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -709,7 +708,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 38)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Skoda_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Skoda_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -723,7 +722,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 39)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Smart_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Smart_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -737,7 +736,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 40)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Subaru_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Subaru_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -751,7 +750,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 41)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Suzuki_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Suzuki_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -765,7 +764,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 42)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Tesla_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Tesla_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -779,7 +778,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 43)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Tofaş_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Tofaş_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -793,7 +792,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 44)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Toyota_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Toyota_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -807,7 +806,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 45)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Volkswagen_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Volkswagen_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -821,7 +820,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 46)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Volvo_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Volvo_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -835,7 +834,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 47)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,oto_Diger_model);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,oto_Diger_model);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -855,7 +854,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                 }
                 else if(position == 2) //motorsiklet markaları listelenecek.
                 {
-                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motorsikletMarkalari);
+                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motorsikletMarkalari);
                     spinner2.setAdapter(modelAdapter);
 
                     spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -867,7 +866,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             //Seçilen Markanın Modelleri Gelecek
                             if(position == 1)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Aeon);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Aeon);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -881,7 +880,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 2)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Altai);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Altai);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -895,7 +894,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 3)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Asya);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Asya);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -909,7 +908,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 4)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Bajaj);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Bajaj);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -923,7 +922,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 5)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Benelli);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Benelli);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -937,7 +936,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 6)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Bianchi);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Bianchi);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -951,7 +950,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 7)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Bisan);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Bisan);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -965,7 +964,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 8)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Bmw);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Bmw);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -979,7 +978,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 9)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_CFMoto);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_CFMoto);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -993,7 +992,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 10)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Daelim);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Daelim);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1007,7 +1006,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 11)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Ducati);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Ducati);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1021,7 +1020,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 12)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Falcon);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Falcon);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1035,7 +1034,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 13)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Gilera);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Gilera);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1049,7 +1048,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 14)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_HarleyDavidson);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_HarleyDavidson);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1063,7 +1062,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 15)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Honda);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Honda);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1077,7 +1076,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 16)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Hyundai);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Hyundai);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1091,7 +1090,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 17)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Jawa);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Jawa);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1105,7 +1104,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 18)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Kanuni);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Kanuni);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1118,7 +1117,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                                 });
                             }  else if(position == 19)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Kawasaki);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Kawasaki);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1132,7 +1131,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 20)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Kral_Motor);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Kral_Motor);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1146,7 +1145,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 21)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Mondial);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Mondial);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1160,7 +1159,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 22)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Salcano);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Salcano);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1174,7 +1173,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 23)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Suzuki);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Suzuki);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1188,7 +1187,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 24)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Yuki);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Yuki);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1202,7 +1201,7 @@ public class AracEklemeActivity extends AppCompatActivity {
                             }
                             else if(position == 25)
                             {
-                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getApplication(),android.R.layout.simple_list_item_1,motor_Diger);
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,motor_Diger);
                                 spinner3.setAdapter(modelAdapter);
                                 spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
@@ -1226,43 +1225,10 @@ public class AracEklemeActivity extends AppCompatActivity {
 
             }
         });
-    }
-    public void personIdCekme(){
-        String url = "http://sinemakulup.com/aramaYapma.php";
-        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //Log.e("cevap:",response);
-                //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray PersonListe = jsonObject.getJSONArray("User");
-                    for(int i = 0; i < PersonListe.length(); i++ ) {
-                        JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
-                        person_id = p.getString("person_id");
-                        //LOGDA Göstermek için
-                        //Log.e("Person_id => ",String.valueOf(person_id));
-                        //Log.e("***","****");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }){
-            //Aranacak Veri işlemlerini yapacağız.
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Log.e("Person_id => ",String.valueOf(gelenAd));
-                Map<String,String> params = new HashMap<>();
-                params.put("userName",gelenAd);
-                return params;
-            }
-        };
-        Volley.newRequestQueue(this).add(istek);
+
+
+
+        return viewRoot;
     }
     public void aracKaydet() {
         //gidecek url belirliyorum. webservis insert kısmı burada
@@ -1276,14 +1242,11 @@ public class AracEklemeActivity extends AppCompatActivity {
                     String success = jsonObject.getString("success");
                     if(success.equals("1"))
                     {
-                        Toast.makeText(getApplicationContext(),"Kayıt Başarılı",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        Toast.makeText(getActivity(),"Kayıt Başarılı",Toast.LENGTH_SHORT).show();
                     }
                 }catch (JSONException e){
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"Kayıt Başarısız"+e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Kayıt Başarısız"+e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -1301,13 +1264,12 @@ public class AracEklemeActivity extends AppCompatActivity {
                 params.put("raw_plate",row_plate);
                 params.put("brand", aracMarka);
                 params.put("model", aracModel);
-                params.put("is_main", "1");
+                params.put("is_main", "0");
                 params.put("city_id", ilPlaka);
-                params.put("person_id",person_id);
+                params.put("person_id",kID);
                 return params;
             }
         };
-        Volley.newRequestQueue(this).add(istek);
+        Volley.newRequestQueue(getActivity()).add(istek);
     }
-
 }

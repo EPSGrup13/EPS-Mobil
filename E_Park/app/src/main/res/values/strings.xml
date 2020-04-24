@@ -9,4 +9,7 @@
     <string name="giris_tercihi">com.example.sharedlogindeneme_giris_tercihi</string>
     <string name="giris_durumu_tercihi">com.example.sharedlogindeneme_giris_durumu_tercihi</string>
     <string name="invalid_plakaa">Geçerli bir plaka giriniz.(34ABC123)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
