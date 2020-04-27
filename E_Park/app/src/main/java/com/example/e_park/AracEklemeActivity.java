@@ -30,8 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AracEklemeActivity extends AppCompatActivity {
-    String gelenAd;
-    String person_id;
+    String gelenAd, person_id;
     private Spinner spinner,spinner2,spinner3;
     private ArrayAdapter<String> spinnerAdapter;
     String aracTip, aracMarka,aracModel,ilPlaka,row_plate,full_plate;

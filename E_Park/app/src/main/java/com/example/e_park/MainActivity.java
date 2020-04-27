@@ -184,18 +184,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
         else if (item.getItemId() == R.id.nav_item_profilinf){
-
                 //Toast.makeText(getApplicationContext(),"Profil Bilgileri",Toast.LENGTH_SHORT).show();
-                fragment = new FragmentProfil();
+                fragment = new FragmentProfiliGoster();
                 Bundle b2 = new Bundle();
                 b2.putInt("deger",person_id);
-                b2.putString("balanceDeger",balance);
-                b2.putString("firstNameDeger",firstName);
-                b2.putString("lastNameDeger",lastName);
-                b2.putString("telefon",String.valueOf(phoneNo));
-                b2.putString("city_id",String.valueOf(city_id));
-                b2.putString("email",email);
+                b2.putString("deger2",gelenKadi);
                 fragment.setArguments(b2);
+        }
+        else if(item.getItemId() == R.id.nav_item_profilguncelle)
+        {
+            fragment = new FragmentProfilGuncelleme();
+            Bundle b2 = new Bundle();
+            b2.putInt("deger",person_id);
+            b2.putString("deger2",gelenKadi);
+            fragment.setArguments(b2);
         }
         else if (item.getItemId() == R.id.nav_item_carinf){
             //Toast.makeText(getApplicationContext(),"Araç Bilgileri",Toast.LENGTH_SHORT).show();
@@ -229,6 +231,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Toast.makeText(getApplicationContext(),"Ödeme Yöntemleri",Toast.LENGTH_SHORT).show();
             fragment = new FragmentBakiye();
+            Bundle b2 = new Bundle();
+            b2.putInt("deger",person_id);
+            fragment.setArguments(b2);
         }
         else if(item.getItemId() == R.id.nav_item_sss)
         {

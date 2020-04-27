@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
- <item android:title="Hesabım">
+ <item android:title="Profil İşlemleri">
      <menu>
         <item android:id="@+id/nav_item_profilinf"
             android:title="Profil Bilgileri"
             android:icon="@drawable/ic_account_account"/>
-         <item android:id="@+id/nav_item_carinf"
-             android:title="Araç Bilgileri"
-             android:icon="@drawable/ic_action_car"/>
-         <item android:id="@+id/nav_item_caradd"
-             android:title="Araç Ekle"
-             android:icon="@drawable/ic_action_car"/>
+         <item android:id="@+id/nav_item_profilguncelle"
+             android:title="Profil Güncelleme"
+             android:icon="@drawable/ic_account_account"/>
      </menu>
  </item>
+    <item android:title="Araç İşlemleri">
+        <menu>
+            <item android:id="@+id/nav_item_carinf"
+                android:title="Araç Bilgileri"
+                android:icon="@drawable/ic_action_car"/>
+            <item android:id="@+id/nav_item_caradd"
+                android:title="Araç Ekle"
+                android:icon="@drawable/ic_action_car"/>
+        </menu>
+    </item>
     <item android:title="E-park İşlemleri">
         <menu>
             <item android:id="@+id/nav_item_findpark"

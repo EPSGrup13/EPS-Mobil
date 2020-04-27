@@ -115,6 +115,10 @@ public class FragmentArac extends Fragment {
                         textViewModel2.setVisibility(View.VISIBLE);
                         textViewPlaka2.setVisibility(View.VISIBLE);
                     }
+                    else if(counter == 3)
+                    {
+
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

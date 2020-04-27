@@ -169,7 +169,7 @@ public class FragmentAracEkle extends Fragment {
         final String[] motor_Yuki ={"Afşin 250","Drag 200","Forza 170","FX1", "YK 100","Diger"}; //24
         final String[] motor_Diger ={"Diger"}; //25
         // Araç tipini seçtiriyoruz.
-        spinnerAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,aracTipi);
+        spinnerAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_item,aracTipi);
         spinner.setAdapter(spinnerAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
