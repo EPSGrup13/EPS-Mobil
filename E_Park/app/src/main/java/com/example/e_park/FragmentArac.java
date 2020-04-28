@@ -1,13 +1,11 @@
 package com.example.e_park;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,7 +39,7 @@ public class FragmentArac extends Fragment {
 
         View viewRoot = inflater.inflate(R.layout.fragment_arac,container,false);
         textViewAracYok = viewRoot.findViewById(R.id.textViewAracYok);
-        textViewMarka = viewRoot.findViewById(R.id.textViewMarka);
+        textViewMarka = viewRoot.findViewById(R.id.textViewModel);
         textViewModel = viewRoot.findViewById(R.id.textViewModel);
         textViewPlaka = viewRoot.findViewById(R.id.textViewPlaka);
         textViewMarka2 = viewRoot.findViewById(R.id.textViewMarka2);

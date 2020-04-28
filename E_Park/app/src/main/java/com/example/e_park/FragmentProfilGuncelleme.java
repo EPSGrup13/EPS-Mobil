@@ -3,6 +3,7 @@ package com.example.e_park;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,7 +63,7 @@ public class FragmentProfilGuncelleme  extends Fragment {
         awesomeValidation.addValidation(getActivity(),R.id.edit_kisim, "[a-zA-Z][a-zA-ZİıŞşĞğÜüÇçÖö ]{2,25}$",R.string.invalid_soyisim);
         awesomeValidation.addValidation(getActivity(), R.id.edit_kTel, "0[0-9]{3}[0-9]{3}[0-9]{2}[0-9]{2}", R.string.invalid_phone);
         awesomeValidation.addValidation(getActivity(),R.id.edit_kMail, Patterns.EMAIL_ADDRESS,R.string.invalid_mail);
-
+        bilgiCekme();
         isim = viewRoot.findViewById(R.id.editTextAd);
         soyisim = viewRoot.findViewById(R.id.editTextSoyad);
         tel = viewRoot.findViewById(R.id.editTextTel);
@@ -100,15 +102,15 @@ public class FragmentProfilGuncelleme  extends Fragment {
                 String telefon = tel.getText().toString();
                 String mailadresi = mail.getText().toString();
 
-                if(TextUtils.isEmpty(ad) && TextUtils.isEmpty(soyad) && TextUtils.isEmpty(ad) && TextUtils.isEmpty(telefon) && TextUtils.isEmpty(mailadresi))
+                /*if(TextUtils.isEmpty(ad) && TextUtils.isEmpty(soyad) && TextUtils.isEmpty(ad) && TextUtils.isEmpty(telefon) && TextUtils.isEmpty(mailadresi))
                 {
                     Toast.makeText(getActivity(),"Tüm alanlar doldurulmalıdır!",Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(ad) || TextUtils.isEmpty(soyad) || TextUtils.isEmpty(ad) || TextUtils.isEmpty(telefon) || TextUtils.isEmpty(mailadresi))
                 {
                     Toast.makeText(getActivity(),"Boş alan bırakılamaz!",Toast.LENGTH_SHORT).show();
-                }
-                else if(awesomeValidation.validate() == false)
+                }*/
+                 if(awesomeValidation.validate() == false)
                 {
                     Toast.makeText(getActivity(),"Kurallara göre bilgileri doldurunuz!",Toast.LENGTH_SHORT).show();
                 }
@@ -214,6 +216,58 @@ public class FragmentProfilGuncelleme  extends Fragment {
                 params.put("lastName",soyisim.getText().toString());
                 params.put("phoneNo",tel.getText().toString());
                 params.put("email",mail.getText().toString());
+                return params;
+            }
+        };
+        Volley.newRequestQueue(getActivity()).add(istek);
+    }
+    public void bilgiCekme() {
+
+        String url = "http://sinemakulup.com/aramaYapma3.php";
+        StringRequest istek = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("cevapbilgi:", response);
+                //Log.e JSON türünde veri döndürüyor. Bunu JSON Parse işlemi ile çevirmem gerekiyor.
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray PersonListe = jsonObject.getJSONArray("Person");
+                    String success = jsonObject.getString("success");
+                    for (int i = 0; i < PersonListe.length(); i++) {
+                        JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
+                        if (success.equals("1")) {
+                            String fname = p.getString("firstName");
+                            String lname = p.getString("lastName");
+                            String phone = p.getString("phoneNo");
+                            String maill = p.getString("email");
+                            //String city_id = p.getString("city_id");
+
+                            isim.setText(fname);
+                            soyisim.setText(lname);
+                            tel.setText(String.valueOf(phone));
+                            mail.setText(maill);
+                        }
+                        if (success.equals("0")) {
+                            Toast.makeText(getActivity(), "Bir Hata meydana geldi.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("Exception hata=> ", e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Hata", error.toString());
+            }
+        }) {
+            //Aranacak Veri işlemlerini yapacağız.
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Log.e("Person_id => ",String.valueOf(gelenAd));
+                Map<String, String> params = new HashMap<>();
+                params.put("person_id", kID);
                 return params;
             }
         };
