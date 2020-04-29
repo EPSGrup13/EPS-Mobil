@@ -51,7 +51,8 @@
         </menu>
     </item>
     <item android:title="Çıkış Yap"
-        android:id="@+id/cikisYap">
+        android:id="@+id/cikisYap"
+        android:icon="@drawable/ic_action_exit">
 
     </item>
 

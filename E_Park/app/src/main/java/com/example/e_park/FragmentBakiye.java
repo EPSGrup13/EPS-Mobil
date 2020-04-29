@@ -136,7 +136,7 @@ public class FragmentBakiye extends Fragment {
                     for(int i = 0; i < PersonListe.length(); i++ ) {
                         JSONObject p = PersonListe.getJSONObject(i); //her bir degeri p nesnesine alıyorum.
                         balance = p.getString("balance");
-                        textViewGuncelBakiye.setText(balance+" Türk Lirası.");
+                        textViewGuncelBakiye.setText(balance+" TL");
                         //LOGDA Göstermek için
                     }
 

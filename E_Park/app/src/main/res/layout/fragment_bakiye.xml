@@ -3,15 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bground">
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="103dp"
         android:layout_height="20dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="5dp"
         android:text="Güncel Bakiye:"
+        app:layout_constraintEnd_toStartOf="@+id/textViewGuncelBakiye"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,34 +22,22 @@
         android:id="@+id/textViewGuncelBakiye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="143dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="42dp"
         android:text="Bakiye"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="176dp"
         android:text="Kredi Kartı Bilgileri"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonbakiyeYukle"
-        app:srcCompat="@drawable/bak" />
 
     <Button
         android:id="@+id/button50"
@@ -55,9 +46,8 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="32dp"
         android:text="50 TL"
-        app:layout_constraintBottom_toTopOf="@+id/editTextBakiye"
+        android:background="@drawable/button_custom"
         app:layout_constraintEnd_toStartOf="@+id/button100"
         app:layout_constraintStart_toEndOf="@+id/button25"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -68,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="10 TL"
+        android:background="@drawable/button_custom"
         app:layout_constraintEnd_toStartOf="@+id/button25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -79,9 +70,8 @@
         android:layout_marginStart="22dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="32dp"
         android:text="25 TL"
-        app:layout_constraintBottom_toTopOf="@+id/editTextBakiye"
+        android:background="@drawable/button_custom"
         app:layout_constraintEnd_toStartOf="@+id/button50"
         app:layout_constraintStart_toEndOf="@+id/button10"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -138,12 +128,12 @@
         android:id="@+id/editTextKartadi"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="Kart Sahibi Ad Soyad"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -153,31 +143,44 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="100 TL"
+        android:background="@drawable/button_custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button50"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <EditText
         android:id="@+id/editTextBakiye"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="25dp"
         android:ems="10"
         android:hint="Tutar Giriniz"
         android:inputType="numberDecimal"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button25" />
+        app:layout_constraintTop_toBottomOf="@+id/button50" />
 
     <Button
         android:id="@+id/buttonbakiyeYukle"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/button_custom"
         android:text="Bakiye Yükle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextBakiye" />
+        app:layout_constraintTop_toBottomOf="@+id/button50" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:srcCompat="@drawable/bak" />
 </androidx.constraintlayout.widget.ConstraintLayout>
