@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bground"
+    tools:context=".MainActivity">
+
+    <Spinner
+        android:id="@+id/spinnerAracTuru"
+        android:layout_width="197dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <Spinner
+        android:id="@+id/spinnerMarka"
+        android:layout_width="197dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAracTuru" />
+
+    <Spinner
+        android:id="@+id/spinnerModel"
+        android:layout_width="197dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMarka" />
+
+    <Button
+        android:id="@+id/buttonKaydet"
+        android:layout_width="197dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_custom"
+        android:text="Kaydet"
+        android:textColor="@color/ColorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextplakaGir" />
+
+    <EditText
+        android:id="@+id/editTextplakaGir"
+        android:layout_width="197dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Plakanızı girin"
+        android:textColor="@color/ColorBlack"
+        android:textColorHint="@color/ColorBlack"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerModel" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="256dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/carfoto" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="338dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="20dp"
+        android:text="YENİ ARAÇ EKLEME SAYFASI"
+        android:textColor="#85C0DA"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

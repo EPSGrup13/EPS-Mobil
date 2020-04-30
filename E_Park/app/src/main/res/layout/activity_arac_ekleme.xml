@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerAracTuru"
         android:layout_width="206dp"
         android:layout_height="42dp"
         android:layout_marginTop="100dp"
@@ -17,25 +17,25 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerMarka"
         android:layout_width="206dp"
         android:layout_height="42dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAracTuru" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spinnerModel"
         android:layout_width="206dp"
         android:layout_height="42dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMarka" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonKaydet"
         android:layout_width="184dp"
         android:layout_height="56dp"
         android:layout_marginTop="30dp"
@@ -43,7 +43,7 @@
         android:background="@drawable/button_custom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plakaGir" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextplakaGir" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/plakaGir"
+        android:id="@+id/editTextplakaGir"
         android:layout_width="205dp"
         android:layout_height="45dp"
         android:layout_marginTop="25dp"
@@ -107,7 +107,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerModel" />
 
     <TextView
         android:id="@+id/textView8"

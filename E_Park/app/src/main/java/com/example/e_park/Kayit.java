@@ -1,18 +1,12 @@
 package com.example.e_park;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,13 +20,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +45,7 @@ public class Kayit extends AppCompatActivity {
         ksoyisim = findViewById(R.id.edit_ksoyad);
         kmail = findViewById(R.id.edit_kMail);
         ktel = findViewById(R.id.edit_kTel);
-        spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinnerAracTuru);
 
 
         //Girilen bilgilerin tiplerinin kontrolünü sağlıyoruz..

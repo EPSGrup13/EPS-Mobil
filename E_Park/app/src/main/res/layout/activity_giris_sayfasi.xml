@@ -5,7 +5,7 @@
     android:id="@+id/anaEkran"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/bground"
     tools:context=".GirisSayfasiActivity">
 
     <EditText
@@ -17,8 +17,8 @@
         android:ems="10"
         android:hint="Kullanıcı Adı veya E-Posta Adresi"
         android:inputType="textPersonName"
-        android:textColor="@color/ColorWhite"
-        android:textColorHint="@color/ColorHint"
+        android:textColor="@color/ColorBlack"
+        android:textColorHint="@color/ColorBlack"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
         android:ems="10"
         android:hint="Şifre"
         android:inputType="textPassword"
-        android:textColor="@color/ColorWhite"
-        android:textColorHint="@color/ColorHint"
+        android:textColor="@color/ColorBlack"
+        android:textColorHint="@color/ColorBlack"
         android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/button_custom"
         android:text="Giriş Yap"
-        android:textColor="#F4F0F0"
+        android:textColor="#171717"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -63,7 +63,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/button_custom"
         android:text="Kayıt OL"
-        android:textColor="#F3EDED"
+        android:textColor="#1E1D1D"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,8 +71,13 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="178dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/eparklogo" />
 
     <TextView
@@ -82,7 +87,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="80dp"
         android:text="Parolanızı mı unuttunuz?"
-        android:textColor="#FFFFFF"
+        android:textColor="#131313"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

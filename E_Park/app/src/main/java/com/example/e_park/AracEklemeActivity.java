@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,8 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AracEklemeActivity extends AppCompatActivity {
-    String gelenAd;
-    String person_id;
+    String gelenAd, person_id;
     private Spinner spinner,spinner2,spinner3;
     private ArrayAdapter<String> spinnerAdapter;
     String aracTip, aracMarka,aracModel,ilPlaka,row_plate,full_plate;
@@ -47,17 +44,17 @@ public class AracEklemeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arac_ekleme);
-        spinner = findViewById(R.id.spinner);
-        spinner2 = findViewById(R.id.spinner2);
-        spinner3 = findViewById(R.id.spinner3);
+        spinner = findViewById(R.id.spinnerAracTuru);
+        spinner2 = findViewById(R.id.spinnerMarka);
+        spinner3 = findViewById(R.id.spinnerModel);
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
-        awesomeValidation.addValidation(this,R.id.plakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
+        awesomeValidation.addValidation(this,R.id.editTextplakaGir, "[0-9]{1,2}[A-Za-z]{1,3}[0-9]{1,4}",R.string.invalid_plakaa);
         gelenAd = getIntent().getExtras().getString("kullaniciAdi");
         personIdCekme();
 
-        girilenPlaka = findViewById(R.id.plakaGir);
+        girilenPlaka = findViewById(R.id.editTextplakaGir);
 
-        buton_kaydet = findViewById(R.id.button);
+        buton_kaydet = findViewById(R.id.buttonKaydet);
 
         buton_kaydet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1283,7 +1280,6 @@ public class AracEklemeActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-
                 }catch (JSONException e){
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(),"Kayıt Başarısız"+e.toString(), Toast.LENGTH_SHORT).show();
