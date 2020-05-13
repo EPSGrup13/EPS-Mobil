@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bground"
     tools:layout_editor_absoluteX="19dp"
-    tools:layout_editor_absoluteY="30dp"
-    android:background="@drawable/bground">
+    tools:layout_editor_absoluteY="30dp">
 
     <TextView
         android:id="@+id/kullaniciAdiGosterme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="106dp"
         android:text="KULLANICI ADI"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/adGoster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
         android:text="TELEFON:"
         android:textSize="24sp"
@@ -37,7 +39,7 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
         android:text="E-MAİL:"
         android:textSize="24sp"
@@ -49,7 +51,7 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
         android:text="SOYAD:"
         android:textSize="24sp"
@@ -61,19 +63,19 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="266dp"
         android:text="AD:"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
         android:text="ŞEHİR:"
         android:textSize="24sp"
@@ -82,92 +84,92 @@
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="44dp"
-        android:text="BAKİYE:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/kullaniciAdiGosterme"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_account_account" />
-
-    <TextView
         android:id="@+id/adGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="106dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/kullaniciAdiGosterme" />
 
     <TextView
         android:id="@+id/paraGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="88dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView13"
+        app:layout_constraintTop_toBottomOf="@+id/sehiriGoster" />
 
     <TextView
         android:id="@+id/soyadGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/adGoster"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/adGoster" />
 
     <TextView
         android:id="@+id/mailGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
         android:layout_marginTop="23dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/soyadGoster"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/soyadGoster" />
 
     <TextView
         android:id="@+id/telGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/mailGoster"
+        app:layout_constraintStart_toEndOf="@+id/textView25"
         app:layout_constraintTop_toBottomOf="@+id/mailGoster" />
 
     <TextView
         android:id="@+id/sehiriGoster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="26dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/telGoster" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="180dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_action_fragaccount" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="78dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        app:srcCompat="@drawable/ic_action_fragbalance" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
