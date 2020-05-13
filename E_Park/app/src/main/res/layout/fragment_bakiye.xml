@@ -10,91 +10,65 @@
         android:id="@+id/textView11"
         android:layout_width="103dp"
         android:layout_height="20dp"
-        android:layout_marginStart="224dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="48dp"
         android:text="Güncel Bakiye:"
+        app:layout_constraintBottom_toTopOf="@+id/textView22"
         app:layout_constraintEnd_toStartOf="@+id/textViewGuncelBakiye"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewGuncelBakiye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="49dp"
         android:text="Bakiye"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:text="Kredi Kartı Bilgileri"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintBottom_toTopOf="@+id/textView22"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/button50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="18dp"
-        android:text="50 TL"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="19dp"
         android:background="@drawable/button_custom"
-        app:layout_constraintEnd_toStartOf="@+id/button100"
-        app:layout_constraintStart_toEndOf="@+id/button25"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        android:text="50 TL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button10" />
 
     <Button
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="10 TL"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/button_custom"
-        app:layout_constraintEnd_toStartOf="@+id/button25"
+        android:text="10 TL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextKartcvc" />
 
     <Button
         android:id="@+id/button25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        android:text="25 TL"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/button_custom"
-        app:layout_constraintEnd_toStartOf="@+id/button50"
+        android:text="25 TL"
         app:layout_constraintStart_toEndOf="@+id/button10"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextKartcvc" />
 
     <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="62dp"
         android:text="Hızlı Seçim"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Bakiye Yükleme Miktarı"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextKartcvc" />
 
@@ -107,7 +81,7 @@
         android:hint="Kart CVC Kodu"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextKartNo" />
 
@@ -120,7 +94,6 @@
         android:hint="Kart Numarası"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextKartadi" />
 
@@ -128,59 +101,80 @@
         android:id="@+id/editTextKartadi"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="Kart Sahibi Ad Soyad"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
 
     <Button
         android:id="@+id/button100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="16dp"
-        android:text="100 TL"
         android:background="@drawable/button_custom"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="100 TL"
         app:layout_constraintStart_toEndOf="@+id/button50"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/button25" />
 
     <EditText
         android:id="@+id/editTextBakiye"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Tutar Giriniz"
         android:inputType="numberDecimal"
         android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button50" />
 
     <Button
         android:id="@+id/buttonbakiyeYukle"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_width="99dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="27dp"
         android:background="@drawable/button_custom"
         android:text="Bakiye Yükle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button50" />
+        app:layout_constraintStart_toEndOf="@+id/editTextBakiye"
+        app:layout_constraintTop_toBottomOf="@+id/button100" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imageView14"
+        android:layout_width="96dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="53dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_action_fragmentcard" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="238dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="48dp"
+        android:text="BAKİYE YÜKLEME SAYFASI"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/imageView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBakiye"
         app:srcCompat="@drawable/bak" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
